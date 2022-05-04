@@ -295,7 +295,23 @@ func CleanName(name string) string {
 	name = strings.Replace(name, "}", "", -1)
 	name = strings.Replace(name, "/", "_", -1)
 	name = strings.Replace(name, "$", "", -1)
-	return name
+	name = strings.Replace(name, "+", "", -1)
+	return escapeNumericFirstChar(name)
+}
+
+// escapeNumericFirstChar add _ to the beggining of the string if first char is a number
+func escapeNumericFirstChar(str string) string {
+	if len(str) == 0 {
+		return str
+	}
+
+	firstChar := str[0]
+
+	if '0' <= firstChar && firstChar <= '9' {
+		return "_" + str
+	}
+
+	return str
 }
 
 // toCamelCase converts str to CamelCase
