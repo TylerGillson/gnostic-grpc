@@ -19,8 +19,8 @@ import (
 
 	plugins "github.com/google/gnostic/plugins"
 
-	"github.com/google/gnostic-grpc/generator"
-	"github.com/google/gnostic-grpc/incompatibility"
+	"github.com/TylerGillson/gnostic-grpc/generator"
+	"github.com/TylerGillson/gnostic-grpc/incompatibility"
 )
 
 func main() {
