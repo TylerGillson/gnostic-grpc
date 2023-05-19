@@ -1,4 +1,4 @@
-module github.com/google/gnostic-grpc
+module github.com/TylerGillson/gnostic-grpc
 
 go 1.17
 
@@ -21,5 +21,3 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
-
-replace github.com/google/gnostic-grpc v0.1.1 => github.com/TylerGillson/gnostic-grpc v0.1.2

@@ -27,7 +27,7 @@ import (
 	surface_v1 "github.com/google/gnostic/surface"
 	"google.golang.org/genproto/googleapis/api/annotations"
 
-	"github.com/google/gnostic-grpc/utils"
+	"github.com/TylerGillson/gnostic-grpc/utils"
 )
 
 // Gathers all symbolic references we generated in recursive calls.
@@ -36,12 +36,12 @@ var generatedSymbolicReferences = make(map[string]bool, 0)
 // Uses the output of gnostic to return a dpb.FileDescriptorSet (in bytes). 'renderer' contains
 // the 'model' (surface model) which has all the relevant data to create the dpb.FileDescriptorSet.
 // There are four main steps:
-//		1. buildAllMessageDescriptors is called to create all messages which will be rendered in .proto
-//		2. buildAllServiceDescriptors is called to create a RPC service which will be rendered in .proto
-// 		3. buildSymbolicReferences 	recursively executes this plugin to generate all FileDescriptorSet based on symbolic
-// 									references. A symbolic reference is an URL to another OpenAPI description inside of
-//									current description.
-// 		4. buildDependencies to build all static FileDescriptorProto we need.
+//  1. buildAllMessageDescriptors is called to create all messages which will be rendered in .proto
+//  2. buildAllServiceDescriptors is called to create a RPC service which will be rendered in .proto
+//  3. buildSymbolicReferences 	recursively executes this plugin to generate all FileDescriptorSet based on symbolic
+//     references. A symbolic reference is an URL to another OpenAPI description inside of
+//     current description.
+//  4. buildDependencies to build all static FileDescriptorProto we need.
 func (renderer *Renderer) runFileDescriptorSetGenerator() (fdSet *dpb.FileDescriptorSet, err error) {
 	syntax := "proto3"
 	n := renderer.Package + ".proto"
@@ -211,7 +211,7 @@ func getNamesOfDependenciesThatWillBeImported(dependencies []*dpb.FileDescriptor
 	// At last, we need to add the dependencies to the FileDescriptorProto in order to get them rendered.
 	for _, fd := range dependencies {
 		if isEmptyDependency(*fd.Name) && shouldAddEmptyDependency(methods) {
-			// Reference: https://github.com/google/gnostic-grpc/issues/8
+			// Reference: https://github.com/TylerGillson/gnostic-grpc/issues/8
 			names = append(names, *fd.Name)
 			continue
 		}
