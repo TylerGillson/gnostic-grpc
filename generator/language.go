@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+//	http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -122,7 +122,7 @@ func findNativeType(fType string, fFormat string) string {
 
 // AdjustSurfaceModel simplifies and prettifies the types and fields of the surface model in order to get a better
 // looking output file.
-// Related to: https://github.com/google/gnostic-grpc/issues/11
+// Related to: https://github.com/TylerGillson/gnostic-grpc/issues/11
 func AdjustSurfaceModel(model *surface_v1.Model, inputDocumentType string) {
 	if inputDocumentType == "openapi.v2.Document" {
 		adjustV2Model(model)
@@ -295,7 +295,23 @@ func CleanName(name string) string {
 	name = strings.Replace(name, "}", "", -1)
 	name = strings.Replace(name, "/", "_", -1)
 	name = strings.Replace(name, "$", "", -1)
-	return name
+	name = strings.Replace(name, "+", "", -1)
+	return escapeNumericFirstChar(name)
+}
+
+// escapeNumericFirstChar add _ to the beggining of the string if first char is a number
+func escapeNumericFirstChar(str string) string {
+	if len(str) == 0 {
+		return str
+	}
+
+	firstChar := str[0]
+
+	if '0' <= firstChar && firstChar <= '9' {
+		return "_" + str
+	}
+
+	return str
 }
 
 // toCamelCase converts str to CamelCase

@@ -207,12 +207,25 @@ func addEnumDescriptorIfNecessary(message *dpb.DescriptorProto, f *surface_v1.Fi
 	}
 }
 
+func getEnumFieldName(value string) string {
+	name := strings.ToUpper(value)
+	name = strings.ReplaceAll(name, "-", "_")
+
+	firstChar := name[0]
+
+	if '0' <= firstChar && firstChar <= '9' {
+		return "_" + name
+	}
+
+	return name
+}
+
 // buildEnumDescriptorProto builds the necessary descriptor to render a enum. (https://developers.google.com/protocol-buffers/docs/proto3#enum)
 func buildEnumDescriptorProto(f *surface_v1.Field) *dpb.EnumDescriptorProto {
 	enumDescriptor := &dpb.EnumDescriptorProto{Name: &f.NativeType}
 	for enumCtr, value := range f.EnumValues {
 		num := int32(enumCtr)
-		name := strings.ToUpper(value)
+		name := getEnumFieldName(value)
 		valueDescriptor := &dpb.EnumValueDescriptorProto{
 			Name:   &name,
 			Number: &num,
